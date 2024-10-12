@@ -10,6 +10,8 @@ doctest = false
 
 [dependencies]
 soroban-sdk = { workspace = true }
+serde = { version = "1.0", features = ["derive"] }
+serde_derive = "1.0"
 
 [dev-dependencies]
 soroban-sdk = { workspace = true, features = ["testutils"] }
