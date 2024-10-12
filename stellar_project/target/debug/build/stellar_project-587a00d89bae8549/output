@@ -1,0 +1,4 @@
+cargo:rerun-if-changed=build.rs
+Build script is running!
+cargo:rustc-env=PYTHON_SYS_EXECUTABLE=python3.12
+cargo:rustc-env=PYTHONPATH=/usr/local/lib/python3.12/site-packages

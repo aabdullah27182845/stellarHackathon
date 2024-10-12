@@ -6,6 +6,8 @@ version = 3
 name = "add_prisoner"
 version = "0.0.0"
 dependencies = [
+ "serde",
+ "serde_derive",
  "soroban-sdk",
 ]
 

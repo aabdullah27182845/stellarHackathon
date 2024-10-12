@@ -4,4 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-pyo3 = { version = "0.18", features = ["extension-module"] }
+pyo3 = { version = "0.22.4", features = ["extension-module"] }
+
+# Include the default build script
+build = "0.0.2"  # This line ensures Cargo looks for 'build.rs'

@@ -7,10 +7,8 @@ cursor = connection.cursor()
 cursor.execute ('''
 CREATE TABLE IF NOT EXISTS Prisoner (
     prisoner_id TEXT PRIMARY KEY,
-    first_name TEXT,
-    last_name TEXT,
+    full_name TEXT,
     date_of_birth DATE,
-    gender TEXT,
     sentence_start_date DATE,
     sentence_end_date DATE,
     background_info TEXT,
