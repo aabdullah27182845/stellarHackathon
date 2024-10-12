@@ -26,7 +26,7 @@ impl PrisonerRecord {
 
     // Helper function to convert from String to Symbol
     pub fn to_symbol(env: &Env, string: &String) -> Symbol {
-        Symbol::new(env, string)
+        Symbol::new(env, &str)
     }
 }
 
@@ -63,8 +63,9 @@ impl InmateContract {
             current_cell_id: PrisonerRecord::from_symbol(&current_cell_id),
         };
 
-        // Store the record using prisoner_id as the key
-        env.storage().set(&prisoner_id, &record);
+        // Use BytesN<32> for the storage key and store the record
+        let key = InmateContract::get_storage_key(&env, &prisoner_id);
+        env.storage().set(&key, &record);
     }
 
     // Function to retrieve a prisoner record by prisoner_id
