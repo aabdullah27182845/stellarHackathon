@@ -24,46 +24,96 @@
 </ul>
 
 <div class="tab-content" id="managementTabsContent">
-    <div class="tab-pane fade show active" id="prisoners" role="tabpanel" aria-labelledby="prisoners-tab">
+    <!-- Prisoners, Prisons, Blocks, and Cells tabs content remains the same -->
+    
+    <div class="tab-pane fade" id="incidents" role="tabpanel" aria-labelledby="incidents-tab">
         <div class="section">
-            <h2>Prisoners</h2>
-            <form method="POST" action="{{ url_for('add_prisoner') }}" class="mb-4">
-                <h3>Add Prisoner</h3>
+            <h2>Incidents</h2>
+            <form method="POST" action="{{ url_for('report_incident') }}" class="mb-4">
+                <h3>Report Incident</h3>
                 <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="first_name" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="first_name" name="first_name" required>
+                    <div class="col-md-3 mb-3">
+                        <label for="prisoner_id" class="form-label">Prisoner</label>
+                        <select class="form-select" id="prisoner_id" name="prisoner_id" required>
+                            <option value="">Select Prisoner</option>
+                            {% for prisoner in prisoners %}
+                            <option value="{{ prisoner.prisoner_id }}">{{ prisoner.first_name }} {{ prisoner.last_name }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="last_name" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="last_name" name="last_name" required>
+                    <div class="col-md-3 mb-3">
+                        <label for="incident_type" class="form-label">Incident Type</label>
+                        <select class="form-select" id="incident_type" name="incident_type" required>
+                            <option value="">Select Incident Type</option>
+                            <option value="Violence">Violence</option>
+                            <option value="Self-harm">Self-harm</option>
+                            <option value="Barricading">Barricading</option>
+                            <option value="Escape Attempt">Escape Attempt</option>
+                        </select>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="date_of_birth" class="form-label">Date of Birth</label>
-                        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
+                    <div class="col-md-3 mb-3">
+                        <label for="location_prison_id" class="form-label">Prison</label>
+                        <select class="form-select" id="location_prison_id" name="location_prison_id" required>
+                            <option value="">Select Prison</option>
+                            {% for prison in prisons %}
+                            <option value="{{ prison.prison_id }}">{{ prison.prison_name }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="gender" class="form-label">Gender</label>
-                        <select class="form-select" id="gender" name="gender" required>
-                            <option value="">Select Gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
+                    <div class="col-md-3 mb-3">
+                        <label for="location_block_id" class="form-label">Block</label>
+                        <select class="form-select" id="location_block_id" name="location_block_id" required>
+                            <option value="">Select Block</option>
+                            {% for block in blocks %}
+                            <option value="{{ block.block_id }}">{{ block.block_name }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="sentence_start_date" class="form-label">Sentence Start Date</label>
-                        <input type="date" class="form-control" id="sentence_start_date" name="sentence_start_date" required>
+                        <label for="incident_date" class="form-label">Incident Date</label>
+                        <input type="date" class="form-control" id="incident_date" name="incident_date" required>
                     </div>
                     <div class="col-md-6 mb-3">
-                        <label for="sentence_end_date" class="form-label">Sentence End Date</label>
-                        <input type="date" class="form-control" id="sentence_end_date" name="sentence_end_date" required>
+                        <label for="incident_time" class="form-label">Incident Time</label>
+                        <input type="time" class="form-control" id="incident_time" name="incident_time" required>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="background_info" class="form-label">Background Info</label>
-                    <textarea class="form-control" id="background_info" name="background_info" rows="3"></textarea
+                    <label for="incident_description" class="form-label">Description</label>
+                    <textarea class="form-control" id="incident_description" name="incident_description" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Report Incident</button>
+            </form>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Prisoner</th>
+                        <th>Type</th>
+                        <th>Location</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for incident in incidents %}
+                    <tr>
+                        <td>{{ incident.incident_id }}</td>
+                        <td>{{ incident.prisoner_name }}</td>
+                        <td>{{ incident.incident_type }}</td>
+                        <td>{{ incident.prison_name }} - {{ incident.block_name }}</td>
+                        <td>{{ incident.incident_date }}</td>
+                        <td>{{ incident.incident_time }}</td>
+                        <td>{{ incident.description }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
