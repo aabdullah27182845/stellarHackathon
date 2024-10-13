@@ -3,6 +3,15 @@
 version = 3
 
 [[package]]
+name = "add_block"
+version = "0.0.0"
+dependencies = [
+ "serde",
+ "serde_derive",
+ "soroban-sdk",
+]
+
+[[package]]
 name = "add_prisoner"
 version = "0.0.0"
 dependencies = [
