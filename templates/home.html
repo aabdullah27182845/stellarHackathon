@@ -3,7 +3,41 @@
 {% block title %}Home - Prison Management System{% endblock %}
 
 {% block content %}
-<h1>Welcome to the Prison Management System</h1>
-<p>This system helps manage prison records, inmate information, and more.</p>
-<a href="/management" class="btn btn-primary">Go to Management</a>
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <h1 class="display-4 mb-4">Welcome to the Prison Management System</h1>
+        <p class="lead mb-5">Efficiently manage prison records, inmate information, and facility operations with our comprehensive system.</p>
+        <a href="/management" class="btn btn-primary btn-lg">Go to Management Dashboard</a>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <i class="fas fa-users fa-3x mb-3 text-primary"></i>
+                <h3 class="card-title">Inmate Management</h3>
+                <p class="card-text">Easily track and manage inmate records, sentences, and personal information.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <i class="fas fa-building fa-3x mb-3 text-primary"></i>
+                <h3 class="card-title">Facility Overview</h3>
+                <p class="card-text">Monitor prison capacity, block assignments, and cell occupancy in real-time.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-body text-center">
+                <i class="fas fa-clipboard-list fa-3x mb-3 text-primary"></i>
+                <h3 class="card-title">Incident Reporting</h3>
+                <p class="card-text">Efficiently report and track incidents to maintain a safe prison environment.</p>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

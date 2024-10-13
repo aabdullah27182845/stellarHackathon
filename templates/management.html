@@ -3,282 +3,67 @@
 {% block title %}Management - Prison Management System{% endblock %}
 
 {% block content %}
-<h1>Prison Management System</h1>
+<h1 class="mb-4">Prison Management Dashboard</h1>
 
-<!-- Prisoners Section -->
-<h2>Prisoners</h2>
-<form method="POST" action="{{ url_for('add_prisoner') }}">
-    <h3>Add Prisoner</h3>
-    <div class="row">
-        <div class="col-md-3 mb-3">
-            <input type="text" class="form-control" name="first_name" placeholder="First Name" required>
-        </div>
-        <div class="col-md-3 mb-3">
-            <input type="text" class="form-control" name="last_name" placeholder="Last Name" required>
-        </div>
-        <div class="col-md-3 mb-3">
-            <input type="date" class="form-control" name="date_of_birth" required>
-        </div>
-        <div class="col-md-3 mb-3">
-            <select class="form-select" name="gender" required>
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 mb-3">
-            <input type="date" class="form-control" name="sentence_start_date" placeholder="Sentence Start Date" required>
-        </div>
-        <div class="col-md-3 mb-3">
-            <input type="date" class="form-control" name="sentence_end_date" placeholder="Sentence End Date" required>
-        </div>
-        <div class="col-md-6 mb-3">
-            <textarea class="form-control" name="background_info" placeholder="Background Info"></textarea>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Add Prisoner</button>
-</form>
+<ul class="nav nav-tabs mb-4" id="managementTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="prisoners-tab" data-bs-toggle="tab" data-bs-target="#prisoners" type="button" role="tab" aria-controls="prisoners" aria-selected="true">Prisoners</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="prisons-tab" data-bs-toggle="tab" data-bs-target="#prisons" type="button" role="tab" aria-controls="prisons" aria-selected="false">Prisons</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="blocks-tab" data-bs-toggle="tab" data-bs-target="#blocks" type="button" role="tab" aria-controls="blocks" aria-selected="false">Blocks</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="cells-tab" data-bs-toggle="tab" data-bs-target="#cells" type="button" role="tab" aria-controls="cells" aria-selected="false">Cells</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="incidents-tab" data-bs-toggle="tab" data-bs-target="#incidents" type="button" role="tab" aria-controls="incidents" aria-selected="false">Incidents</button>
+    </li>
+</ul>
 
-<table class="table mt-4">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Date of Birth</th>
-            <th>Gender</th>
-            <th>Sentence Start</th>
-            <th>Sentence End</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for prisoner in prisoners %}
-        <tr>
-            <td>{{ prisoner.prisoner_id }}</td>
-            <td>{{ prisoner.first_name }} {{ prisoner.last_name }}</td>
-            <td>{{ prisoner.date_of_birth }}</td>
-            <td>{{ prisoner.gender }}</td>
-            <td>{{ prisoner.sentence_start_date }}</td>
-            <td>{{ prisoner.sentence_end_date }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<!-- Prisons Section -->
-<h2>Prisons</h2>
-<form method="POST" action="{{ url_for('add_prison') }}">
-    <h3>Add Prison</h3>
-    <div class="row">
-        <div class="col-md-4 mb-3">
-            <input type="text" class="form-control" name="prison_name" placeholder="Prison Name" required>
-        </div>
-        <div class="col-md-4 mb-3">
-            <input type="text" class="form-control" name="location" placeholder="Location" required>
-        </div>
-        <div class="col-md-4 mb-3">
-            <input type="number" class="form-control" name="capacity" placeholder="Capacity" required>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Add Prison</button>
-</form>
-
-<table class="table mt-4">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Location</th>
-            <th>Capacity</th>
-            <th>Current Occupancy</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for prison in prisons %}
-        <tr>
-            <td>{{ prison.prison_id }}</td>
-            <td>{{ prison.prison_name }}</td>
-            <td>{{ prison.location }}</td>
-            <td>{{ prison.capacity }}</td>
-            <td>{{ prison.current_occupancy }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<!-- Blocks Section -->
-<h2>Blocks</h2>
-<form method="POST" action="{{ url_for('add_block') }}">
-    <h3>Add Block</h3>
-    <div class="row">
-        <div class="col-md-3 mb-3">
-            <input type="text" class="form-control" name="block_name" placeholder="Block Name" required>
-        </div>
-        <div class="col-md-3 mb-3">
-            <select class="form-select" name="prison_id" required>
-                <option value="">Select Prison</option>
-                {% for prison in prisons %}
-                <option value="{{ prison.prison_id }}">{{ prison.prison_name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col-md-3 mb-3">
-            <input type="number" class="form-control" name="capacity" placeholder="Capacity" required>
-        </div>
-        <div class="col-md-3 mb-3">
-            <button type="submit" class="btn btn-primary">Add Block</button>
-        </div>
-    </div>
-</form>
-
-<table class="table mt-4">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Prison</th>
-            <th>Capacity</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for block in blocks %}
-        <tr>
-            <td>{{ block.block_id }}</td>
-            <td>{{ block.block_name }}</td>
-            <td>{{ block.prison_name }}</td>
-            <td>{{ block.capacity }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<!-- Cells Section -->
-<h2>Cells</h2>
-<form method="POST" action="{{ url_for('add_cell') }}">
-    <h3>Add Cell</h3>
-    <div class="row">
-        <div class="col-md-3 mb-3">
-            <input type="text" class="form-control" name="cell_number" placeholder="Cell Number" required>
-        </div>
-        <div class="col-md-3 mb-3">
-            <select class="form-select" name="block_id" required>
-                <option value="">Select Block</option>
-                {% for block in blocks %}
-                <option value="{{ block.block_id }}">{{ block.block_name }} ({{ block.prison_name }})</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col-md-3 mb-3">
-            <input type="number" class="form-control" name="capacity" placeholder="Capacity" required>
-        </div>
-        <div class="col-md-3 mb-3">
-            <button type="submit" class="btn btn-primary">Add Cell</button>
-        </div>
-    </div>
-</form>
-
-<table class="table mt-4">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Cell Number</th>
-            <th>Block</th>
-            <th>Prison</th>
-            <th>Capacity</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for cell in cells %}
-        <tr>
-            <td>{{ cell.cell_id }}</td>
-            <td>{{ cell.cell_number }}</td>
-            <td>{{ cell.block_name }}</td>
-            <td>{{ cell.prison_name }}</td>
-            <td>{{ cell.capacity }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
-<!-- Incidents Section -->
-<h2>Incidents</h2>
-<form method="POST" action="{{ url_for('report_incident') }}">
-    <h3>Report Incident</h3>
-    <div class="row">
-        <div class="col-md-3 mb-3">
-            <select class="form-select" name="prisoner_id" required>
-                <option value="">Select Prisoner</option>
-                {% for prisoner in prisoners %}
-                <option value="{{ prisoner.prisoner_id }}">{{ prisoner.first_name }} {{ prisoner.last_name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col-md-3 mb-3">
-            <select class="form-select" name="incident_type" required>
-                <option value="">Select Incident Type</option>
-                <option value="Violence">Violence</option>
-                <option value="Self-harm">Self-harm</option>
-                <option value="Barricading">Barricading</option>
-                <option value="Escape Attempt">Escape Attempt</option>
-            </select>
-        </div>
-        <div class="col-md-3 mb-3">
-            <select class="form-select" name="location_prison_id" required>
-                <option value="">Select Prison</option>
-                {% for prison in prisons %}
-                <option value="{{ prison.prison_id }}">{{ prison.prison_name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col-md-3 mb-3">
-            <select class="form-select" name="location_block_id" required>
-                <option value="">Select Block</option>
-                {% for block in blocks %}
-                <option value="{{ block.block_id }}">{{ block.block_name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3 mb-3">
-            <select class="form-select" name="location_cell_id" required>
-                <option value="">Select Cell</option>
-                {% for cell in cells %}
-                <option value="{{ cell.cell_id }}">{{ cell.cell_number }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col-md-9 mb-3">
-            <textarea class="form-control" name="incident_description" placeholder="Incident Description" required></textarea>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Report Incident</button>
-</form>
-
-<table class="table mt-4">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Prisoner</th>
-            <th>Type</th>
-            <th>Date</th>
-            <th>Location</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for incident in incidents %}
-        <tr>
-            <td>{{ incident.incident_id }}</td>
-            <td>{{ incident.first_name }} {{ incident.last_name }}</td>
-            <td>{{ incident.incident_type }}</td>
-            <td>{{ incident.incident_date }}</td>
-            <td>{{ incident.prison_name }} - {{ incident.block_name }} - {{ incident.cell_number }}</td>
-            <td>{{ incident.incident_description }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-{% endblock %}
+<div class="tab-content" id="managementTabsContent">
+    <div class="tab-pane fade show active" id="prisoners" role="tabpanel" aria-labelledby="prisoners-tab">
+        <div class="section">
+            <h2>Prisoners</h2>
+            <form method="POST" action="{{ url_for('add_prisoner') }}" class="mb-4">
+                <h3>Add Prisoner</h3>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="first_name" class="form-label">First Name</label>
+                        <input type="text" class="form-control" id="first_name" name="first_name" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="last_name" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" id="last_name" name="last_name" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="date_of_birth" class="form-label">Date of Birth</label>
+                        <input type="date" class="form-control" id="date_of_birth" name="date_of_birth" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select class="form-select" id="gender" name="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="sentence_start_date" class="form-label">Sentence Start Date</label>
+                        <input type="date" class="form-control" id="sentence_start_date" name="sentence_start_date" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="sentence_end_date" class="form-label">Sentence End Date</label>
+                        <input type="date" class="form-control" id="sentence_end_date" name="sentence_end_date" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="background_info" class="form-label">Background Info</label>
+                    <textarea class="form-control" id="background_info" name="background_info" rows="3"></textarea
